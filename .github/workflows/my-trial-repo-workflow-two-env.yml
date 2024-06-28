@@ -1,0 +1,39 @@
+name: Simple Manual Workflow - Two Env
+
+# Controls when the action will run.
+on:
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+
+  Uat:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: Uat
+
+    # Steps represents a set of tasks that will be executed as part of this job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so you can access it
+      - uses: actions/checkout@v2
+
+      - name: Run a script
+        run:  
+          echo "I am running in Uat environment"
+  
+  PROD:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    environment: PROD
+    needs:  Uat
+
+    # Steps represents a set of tasks that will be executed as part of this job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so you can access it
+      - uses: actions/checkout@v2
+
+      - name: Run a script
+        run:  
+          echo "I am running in Uat environment"
+
